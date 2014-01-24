@@ -88,11 +88,18 @@ namespace HostsFileManager
             combo.ValueMember = "GroupID";
             combo.DisplayMember = "GroupName";
 
-            DataGridViewComboBoxCell comboBoxCell = (DataGridViewComboBoxCell)hostsGrid.Rows[e.RowIndex].Cells["GroupID"];
+            //DataGridViewComboBoxCell comboBoxCell = (DataGridViewComboBoxCell)hostsGrid.Rows[e.RowIndex].Cells["GroupField"];
             //hostsGrid.Rows[e.RowIndex].Cells["GroupField"].Value = hosts.Rows[e.RowIndex]["GroupID"].ToString();
             //comboBoxCell.Items[e.RowIndex]
+            //comboBoxCell.ValueType = typeof(String);
+            //comboBoxCell.Value = hosts.Rows[e.RowIndex]["GroupName"].ToString();
+            
+            //hostsGrid.CurrentRow.Cells["GroupField"]
         
         }
+
+        
+        
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -112,6 +119,40 @@ namespace HostsFileManager
         private void hostsGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
         
+        }
+
+        private void ChooseGroups(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            try
+            {
+                foreach (DataGridViewRow row in hostsGrid.Rows)
+                {
+                    DataGridViewComboBoxCell comboBoxCell = (DataGridViewComboBoxCell)row.Cells["GroupField"];
+                    if (row.Cells["GroupID"].Value != null)
+                        comboBoxCell.Value = row.Cells["GroupName"].Value.ToString();
+
+                }
+            }
+            catch(Exception crap)
+            {
+                string mess = crap.Message;
+            }
+            
+        }
+
+        private void DoNothing(object sender, DataGridViewDataErrorEventArgs e)
+        {
+
+        }
+
+        private void SaveButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void SaveEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            string intt = "1";
         }
     }
 }

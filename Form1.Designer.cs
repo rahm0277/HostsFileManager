@@ -30,14 +30,14 @@
         {
             this.label1 = new System.Windows.Forms.Label();
             this.hostsGrid = new System.Windows.Forms.DataGridView();
-            this.searchText = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
             this.IP = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.HostName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.HostID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.GroupField = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.searchText = new System.Windows.Forms.TextBox();
+            this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.hostsGrid)).BeginInit();
             this.SuspendLayout();
             // 
@@ -64,44 +64,10 @@
             this.hostsGrid.Size = new System.Drawing.Size(604, 206);
             this.hostsGrid.TabIndex = 1;
             this.hostsGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.hostsGrid_CellContentClick);
+            this.hostsGrid.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.SaveEdit);
+            this.hostsGrid.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.ChooseGroups);
+            this.hostsGrid.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.DoNothing);
             this.hostsGrid.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.hostsGrid_RowsAdded);
-            // 
-            // searchText
-            // 
-            this.searchText.Location = new System.Drawing.Point(453, 50);
-            this.searchText.Name = "searchText";
-            this.searchText.Size = new System.Drawing.Size(100, 20);
-            this.searchText.TabIndex = 2;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(564, 47);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 3;
-            this.button1.Text = "Search";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(467, 349);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 4;
-            this.button2.Text = "Save";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(564, 349);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
-            this.button3.TabIndex = 5;
-            this.button3.Text = "Publish";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // IP
             // 
@@ -132,6 +98,43 @@
             this.GroupField.MaxDropDownItems = 100;
             this.GroupField.Name = "GroupField";
             this.GroupField.Width = 150;
+            // 
+            // searchText
+            // 
+            this.searchText.Location = new System.Drawing.Point(453, 50);
+            this.searchText.Name = "searchText";
+            this.searchText.Size = new System.Drawing.Size(100, 20);
+            this.searchText.TabIndex = 2;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(564, 47);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 3;
+            this.button1.Text = "Search";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(467, 349);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.TabIndex = 4;
+            this.button2.Text = "Save";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.SaveButton_Click);
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(564, 349);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(75, 23);
+            this.button3.TabIndex = 5;
+            this.button3.Text = "Publish";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // Form1
             // 
