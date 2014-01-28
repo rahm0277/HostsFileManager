@@ -41,7 +41,7 @@ namespace HostsFileManager
                 
                 
                 //String query = "select ;";
-                String query = "select IpAddress, HostName, Hosts.GroupID, GroupName from Hosts, Groups where Hosts.GroupID = Groups.GroupID and ";
+                String query = "select IpAddress, HostName, Hosts.GroupID, GroupName, HostID from Hosts, Groups where Hosts.GroupID = Groups.GroupID and ";
                 query += "(GroupName like '%" + searchText + "%' OR GroupName like '%" + searchText + "%');";
 
                 //query += "PREP_TIME \"Prep Time\", COOKING_TIME \"Cooking Time\"";
@@ -104,7 +104,7 @@ namespace HostsFileManager
         private void button1_Click(object sender, EventArgs e)
         {
             GetEntries(searchText.Text);
-            string git = "1";
+       
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -130,7 +130,9 @@ namespace HostsFileManager
                 {
                     DataGridViewComboBoxCell comboBoxCell = (DataGridViewComboBoxCell)row.Cells["GroupField"];
                     if (row.Cells["GroupID"].Value != null)
+                    {
                         comboBoxCell.Value = row.Cells["GroupName"].Value.ToString();
+                    }
 
                 }
             }
@@ -146,14 +148,62 @@ namespace HostsFileManager
 
         }
 
-        private void SaveButton_Click(object sender, EventArgs e)
-        {
 
-        }
 
         private void SaveEdit(object sender, DataGridViewCellEventArgs e)
         {
-            string intt = "1";
+            if (e.RowIndex == -1)
+                return;
+            else
+            {
+
+                string ip = hostsGrid.Rows[e.RowIndex].Cells["IP"].Value.ToString();
+                string hostname = hostsGrid.Rows[e.RowIndex].Cells["HostName"].Value.ToString();
+                string groupName = hostsGrid.Rows[e.RowIndex].Cells["GroupField"].Value.ToString();
+                string hostID = hostsGrid.Rows[e.RowIndex].Cells["HostID"].Value.ToString();
+                string groupID = "0";
+
+                if (groupName != "")
+                {
+                    DataRow result = groups.AsEnumerable().Where(dr => dr.Field<string>("GroupName") == groupName).First();
+                    if (result != null)
+                    {
+                        groupID = ((DataRow)result)["GroupID"].ToString();
+                    }
+                }
+
+                Dictionary<string, string> fields = new Dictionary<string,string>();
+                fields.Add("HostName", hostname);
+                fields.Add("GroupID", groupID);
+                fields.Add("IpAddress", ip);
+                db.Update("Hosts", fields, "HostID = " + hostID);
+
+
+            }
+        }
+
+        private void RemoveRow()
+        {
+            
+        }
+
+        private void R_Click(object sender, EventArgs e)
+        {
+
+            if (hostsGrid.Rows.Count > 0)
+            {
+                if(hostsGrid.SelectedRows.Count > 0)
+                {
+                    foreach(DataGridViewRow drv in hostsGrid.SelectedRows)
+                    {
+                        string hostID = drv.Cells["HostID"].Value.ToString();
+                        string query = "delete from hosts where hostID = " + hostID;
+                        db.ExecuteNonQuery(query);
+                    }
+                }
+                
+            }
+
         }
     }
 }

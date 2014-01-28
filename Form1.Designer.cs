@@ -124,7 +124,7 @@
             this.button2.TabIndex = 4;
             this.button2.Text = "Save";
             this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.SaveButton_Click);
+            this.button2.Click += new System.EventHandler(this.R_Click);
             // 
             // button3
             // 
